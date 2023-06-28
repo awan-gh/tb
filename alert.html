@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #container {
+            display: flex;
+            justify-content: center;
+            align-items: center; /* Align vertically in the center */
+            position: relative; /* Set position relative for z-index */
+            height: 100%;
+        }
+        
+        .custom-iframe {
+            width: 450px;
+            height: 350px;
+            border: none;
+            overflow: hidden;
+            position: absolute; /* Set position absolute for overlapping */
+            top: 0; /* Position at the top */
+            left: 50%; /* Position at the horizontal center */
+            transform: translateX(-50%); /* Adjust horizontally to center */
+        }
+        
+        /* Hide the scrollbar for iframes */
+        .custom-iframe::-webkit-scrollbar {
+            width: 0;
+        }
+        
+        #iframe3 {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <iframe class="custom-iframe" src="https://streamlabs.com/alert-box/v3/584FBCF763A60012D485" style="z-index: 2;"></iframe>
+        <iframe class="custom-iframe" src="https://botrix.live/alerts?bid=2w7ZKm8ZK%2FXJYT1dhn5csA" style="z-index: 1;"></iframe>
+        <iframe id="iframe3" src="https://bot.isaiahcreati.com/alerts/v1/a1b4c191-c20e-44ec-b081-07b02e29e8e4"></iframe>
+    </div>
+</body>
+</html>
