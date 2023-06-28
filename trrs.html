@@ -1,24 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-        }
+  <style>
+    /* CSS to make the page fullscreen */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
 
-        #fullscreen-iframe {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-    </style>
+    /* CSS to position iframes */
+    #top-iframe, #bottom-iframe {
+      position: absolute;
+      width: 100%;
+      border: none;
+    }
+
+    #top-iframe {
+      top: 0;
+      height: 70%;
+    }
+
+    #bottom-iframe {
+      bottom: 0;
+      height: 30%;
+    }
+
+    /* CSS for the slider */
+    #slider {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      right: 10px;
+    }
+  </style>
 </head>
 <body>
-    <iframe id="fullscreen-iframe" src="https://www.twitch.tv/embed/tbtoothbrush/chat?darkpopout&parent=awan-gh.github.io"></iframe>
-    <iframe src="https://chat.restream.io/" style="display: none;"></iframe>
+  <iframe id="top-iframe" src="https://www.twitch.tv/embed/tbtoothbrush/chat?darkpopout&parent=awan-gh.github.io"></iframe>
+  <iframe id="bottom-iframe" src="https://chat.restream.io/"></iframe>
+
+  <input type="range" id="slider" min="10" max="90" value="50" step="10">
+
+  <script>
+    var slider = document.getElementById("slider");
+    var topIframe = document.getElementById("top-iframe");
+    var bottomIframe = document.getElementById("bottom-iframe");
+
+    function updateIframeHeights() {
+      var sliderValue = parseInt(slider.value);
+      topIframe.style.height = sliderValue + "%";
+      bottomIframe.style.height = (100 - sliderValue) + "%";
+    }
+
+    slider.addEventListener("input", updateIframeHeights);
+    updateIframeHeights(); // Initialize iframe heights based on default slider value
+  </script>
 </body>
 </html>
