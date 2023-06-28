@@ -2,59 +2,94 @@
 <html>
 <head>
   <style>
-    /* CSS to make the page fullscreen */
+    /* CSS to remove borders and scrollbars */
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
       overflow: hidden;
     }
 
-    /* CSS to position iframes */
-    #top-iframe, #bottom-iframe {
+    /* CSS for fullscreen iframes */
+    .fullscreen-iframe {
       position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
+      height: 100%;
       border: none;
     }
 
-    #top-iframe {
-      top: 0;
-      height: 70%;
-    }
-
-    #bottom-iframe {
+    /* CSS for tab navigation */
+    .tab-navigation {
+      position: fixed;
       bottom: 0;
-      height: 30%;
+      left: 0;
+      width: 100%;
+      background-color: #333;
+      padding: 10px;
+      text-align: center;
     }
 
-    /* CSS for the slider */
-    #slider {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      right: 10px;
+    .tab-navigation button {
+      padding: 5px 10px;
+      margin: 0 5px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    .tab-navigation button:hover {
+      background-color: #555;
+    }
+
+    .tab-navigation button.active {
+      background-color: #000;
     }
   </style>
 </head>
 <body>
-  <iframe id="top-iframe" src="https://www.twitch.tv/embed/tbtoothbrush/chat?darkpopout&parent=awan-gh.github.io"></iframe>
-  <iframe id="bottom-iframe" src="https://chat.restream.io/"></iframe>
+  <!-- Iframe 1 -->
+  <iframe class="fullscreen-iframe" src="https://www.twitch.tv/embed/tbtoothbrush/chat?darkpopout&parent=awan-gh.github.io"></iframe>
 
-  <input type="range" id="slider" min="10" max="90" value="50" step="10">
+  <!-- Iframe 2 -->
+  <iframe class="fullscreen-iframe" src="https://restream.io/chat-application"></iframe>
 
+
+  <!-- Tab navigation -->
+  <div class="tab-navigation">
+    <button onclick="changeIframe(0)" class="active">Twitch Chat</button>
+    <button onclick="changeIframe(1)">Restream Chat</button>
+
+  </div>
+
+  <!-- JavaScript to handle tab navigation -->
   <script>
-    var slider = document.getElementById("slider");
-    var topIframe = document.getElementById("top-iframe");
-    var bottomIframe = document.getElementById("bottom-iframe");
+    // Array of iframes
+    const iframes = Array.from(document.querySelectorAll('.fullscreen-iframe'));
 
-    function updateIframeHeights() {
-      var sliderValue = parseInt(slider.value);
-      topIframe.style.height = sliderValue + "%";
-      bottomIframe.style.height = (100 - sliderValue) + "%";
+    // Function to change the currently shown iframe
+    function changeIframe(index) {
+      iframes.forEach((iframe, i) => {
+        if (i === index) {
+          iframe.style.display = 'block';
+        } else {
+          iframe.style.display = 'none';
+        }
+      });
+
+      // Remove active class from all buttons
+      const buttons = document.querySelectorAll('.tab-navigation button');
+      buttons.forEach((button) => {
+        button.classList.remove('active');
+      });
+
+      // Add active class to the clicked button
+      buttons[index].classList.add('active');
     }
 
-    slider.addEventListener("input", updateIframeHeights);
-    updateIframeHeights(); // Initialize iframe heights based on default slider value
+    // Show the first iframe by default
+    changeIframe(0);
   </script>
 </body>
 </html>
